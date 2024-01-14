@@ -1,0 +1,21 @@
+<div class="container-1400">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-5">Color Picker</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="color-pickers">
+                <div class="row">
+                    <div class="col-6">
+                        <input [(colorPicker)]="defaultColor1" [style.background]="defaultColor1" (colorPickerClose)="onSelectorOpen($event)"/>
+                    </div>
+                    <div class="col-6">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

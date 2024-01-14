@@ -1,1 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+.container-1400 {
+    max-width: 1496px;
+    margin: auto;
+}

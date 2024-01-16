@@ -1,7 +1,58 @@
+.main-container {
+    display: flex;
+    height: 100vh;
+}
+
 .container-1400 {
     min-height: 500px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+}
+
+.picker {
+    background: rgba(255, 255, 255, 0.22);
+    border-radius: 16px;
+    box-shadow: 8px 6px 30px rgb(0 0 0 / 35%);
+    backdrop-filter: blur(0.3px);
+    -webkit-backdrop-filter: blur(0.3px);
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    padding: 1rem 3rem;
+    position: relative;
+}
+
+.color-picker {
+    top: 0;
+    left: 0;
+}
+
+.picker input {
+    height: 150px;
+    width: 150px;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: none;
+    margin-block: 2rem;
+}
+
+.selected-color {
+    font-weight: 600;
+}
+
+.ratio {
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 2rem;
+    /* box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); */
+}
+
+.color-example {
+    box-shadow: 8px 6px 30px rgb(0 0 0 / 35%);
+    padding: .5rem;
+    margin-top: 2rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 0;
 }

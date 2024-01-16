@@ -1,19 +1,45 @@
-<div class="container-1400">
-    <div class="row">
-        <div class="col-12">
-            <h1 class="text-center mb-5">Color Picker</h1>
+<div class="main-container">
+    <div class="container-1400">
+        <div class="row">
+            <div class="col-12">
+                <div class="heading text-center">
+                    <h1>Color Picker</h1>
+                    <h3>Contrast Ratio</h3>
+                    <p class="ratio" [ngStyle]="{'color': contrastRatio >= 4.5 ? 'green' : 'red'}">{{ contrastRatio }}</p>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            <div class="color-pickers">
-                <div class="row">
-                    <div class="col-6">
-                        <input [(colorPicker)]="defaultColor1" [style.background]="defaultColor1" (colorPickerClose)="onSelectorOpen($event)"/>
+        <div class="row">
+            <div class="col-12">
+                <div class="color-pickers">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="picker left-picker">
+                                <p class="muted text-center">Text Color</p>
+                                <input [(colorPicker)]="textColor" 
+                                [style.background]="textColor" 
+                                [cpPosition]="'left'"
+                                [cpOutputFormat]="'rgba'"
+                                (colorPickerClose)="onFirstSelectorOpen($event)"
+                                />
+                                <p class="selected-color text-center">{{ this.selectedTextColor ? selectedTextColor : textColor }}</p>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="picker right-picker">
+                                <p class="muted text-center">Background Color</p>
+                                <input [(colorPicker)]="backgroundColor" 
+                                [style.background]="backgroundColor"
+                                [cpOutputFormat]="'rgba'"
+                                [cpPosition]="'left'" 
+                                (colorPickerClose)="onSecondSelectorOpen($event)"/>
+                                <p class="selected-color text-center">{{ this.selectedBackgroundColor ? selectedBackgroundColor : backgroundColor }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        
-                    </div>
+                </div>
+                <div class="color-example" [ngStyle]="{ 'background-color': this.selectedBackgroundColor ? selectedBackgroundColor : backgroundColor }">
+                    <p [ngStyle]="{ 'color': this.selectedTextColor ? this.selectedTextColor : textColor }">This is a test sentence</p>
                 </div>
             </div>
         </div>

@@ -2,3 +2,12 @@
     max-width: 1496px;
     margin: auto;
 }
+body{
+    background: url('/assets/images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+p {
+    margin-bottom: 0;
+}

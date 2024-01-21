@@ -3,43 +3,47 @@
         <div class="row">
             <div class="col-12">
                 <div class="heading text-center">
-                    <h1>Color Picker</h1>
-                    <h3>Contrast Ratio</h3>
-                    <p class="ratio" [ngStyle]="{'color': contrastRatio >= 4.5 ? 'green' : 'red'}">{{ contrastRatio }}</p>
+                    <h1>Contrast Ratio Checker</h1>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="color-pickers">
+                <div class="color-pickers mt-4">
+                    <p class="ratio mt-3 text-center" [ngStyle]="{ 'color': this.contrast >= 4.5 ? 'green' : 'red' }">{{ ratio }}</p>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-md-6 my-4">
+                            <p class="muted">Text Color</p>
                             <div class="picker left-picker">
-                                <p class="muted text-center">Text Color</p>
-                                <input [(colorPicker)]="textColor" 
-                                [style.background]="textColor" 
-                                [cpPosition]="'left'"
+                                <input [(colorPicker)]="selectedTextColor" 
+                                [style.background]="selectedTextColor" 
+                                [cpPosition]="'bottom'"
+                                [cpCloseClickOutside]="true"
                                 [cpOutputFormat]="'rgba'"
                                 (colorPickerClose)="onFirstSelectorOpen($event)"
+                                (colorPickerChange)="onFirstSelectorOpen($event)"
                                 />
-                                <p class="selected-color text-center">{{ this.selectedTextColor ? selectedTextColor : textColor }}</p>
+                                <p class="selected-color mt-2">{{ this.selectedTextColor }}</p>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-md-6 my-4">
+                            <p class="muted">Background Color</p>
                             <div class="picker right-picker">
-                                <p class="muted text-center">Background Color</p>
-                                <input [(colorPicker)]="backgroundColor" 
-                                [style.background]="backgroundColor"
+                                <input [(colorPicker)]="selectedBackgroundColor" 
+                                [style.background]="selectedBackgroundColor"
                                 [cpOutputFormat]="'rgba'"
-                                [cpPosition]="'left'" 
-                                (colorPickerClose)="onSecondSelectorOpen($event)"/>
-                                <p class="selected-color text-center">{{ this.selectedBackgroundColor ? selectedBackgroundColor : backgroundColor }}</p>
+                                [cpCloseClickOutside]="true"
+                                [cpPosition]="'bottom'" 
+                                (colorPickerClose)="onSecondSelectorOpen($event)"
+                                (colorPickerChange)="onSecondSelectorOpen($event)"
+                                />
+                                <p class="selected-color mt-2">{{ this.selectedBackgroundColor }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="color-example" [ngStyle]="{ 'background-color': this.selectedBackgroundColor ? selectedBackgroundColor : backgroundColor }">
-                    <p [ngStyle]="{ 'color': this.selectedTextColor ? this.selectedTextColor : textColor }">This is a test sentence</p>
+                <div class="color-example mt-5" [ngStyle]="{ 'background-color': this.selectedBackgroundColor }">
+                    <p [ngStyle]="{ 'color': this.selectedTextColor }">This is a test sentence</p>
                 </div>
             </div>
         </div>

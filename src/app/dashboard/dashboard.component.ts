@@ -6,46 +6,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
-
-  textColor: string = "rgb(0,0,0)";
-  backgroundColor: string = "rgb(256, 256, 256)";
-  selectedTextColor: string = "";
-  selectedBackgroundColor: string = "";
+  selectedTextColor: string = "rgb(0,0,0)";
+  selectedBackgroundColor: string = "rgb(256, 256, 256)";
   contrastRatio: number =  0;
   l1: number = 0;
   l2: number = 0;
+  ratio: string = '';
+  contrast: number = 0;
 
-  ngOnInIt() {
-    this.l1 = this.pullColorValues(this.textColor);
-    this.l2 = this.pullColorValues(this.backgroundColor);
-    if(this.l1 > this.l2) {
-      this.contrastRatio = (this.l2 + 0.05) / (this.l1 + 0.05);
-    } else {
-      this.contrastRatio = (this.l1 + 0.05) / (this.l2 + 0.05);
-    }
+  ngOnInit(): void {
+    this.computeRatio();
   }
 
   onFirstSelectorOpen(color: string) {
     this.selectedTextColor = color;
-    this.l1 = this.pullColorValues(this.selectedTextColor);
-    if(this.l1 > this.l2) {
-      this.contrastRatio = (this.l2 + 0.05) / (this.l1 + 0.05);
-    } else {
-      this.contrastRatio = (this.l1 + 0.05) / (this.l2 + 0.05);
-    }
+    this.computeRatio();
   }
 
   onSecondSelectorOpen(color: string) {
     this.selectedBackgroundColor = color;
+    this.computeRatio();
+  }
+
+  computeRatio() {
+    this.l1 = this.pullColorValues(this.selectedTextColor);
     this.l2 = this.pullColorValues(this.selectedBackgroundColor);
     if(this.l1 > this.l2) {
-      this.contrastRatio = (this.l2 + 0.05) / (this.l1 + 0.05);
-    } else {
       this.contrastRatio = (this.l1 + 0.05) / (this.l2 + 0.05);
+    } else {
+      this.contrastRatio = (this.l2 + 0.05) / (this.l1 + 0.05);
     }
+    this.ratio = this.formatRatio(this.contrastRatio);
   }
 
   pullColorValues(rgb: string) {
@@ -56,33 +47,42 @@ export class DashboardComponent implements OnInit {
   );
     let arr = colorArr.split(',');
     var RsRgb = parseInt(arr[0]) / 255;
-    console.log(RsRgb);
     if(RsRgb <= 0.03928) {
       var r = RsRgb / 12.92
     } else {
       var r = ((RsRgb + 0.055)/1.055) ** 2.4;
     }
     var GsRgb = parseInt(arr[1]) / 255;
-    console.log(GsRgb);
     if(GsRgb <= 0.03928) {
       var g = GsRgb / 12.92
     } else {
       var g = ((GsRgb + 0.055)/1.055) ** 2.4;
     }
     var BsRgb = parseInt(arr[2]) / 255;
-    console.log(BsRgb);
     if(BsRgb <= 0.03928) {
       var b = BsRgb / 12.92
     } else {
       var b = ((BsRgb + 0.055)/1.055) ** 2.4;
     }
     var l = (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
-    // 0.3467047   0.07370942
-    // 0.09302109  .06652926
-    // .0033388    .00024106
-    // .14047974 ending calculated value
-
     return l;
+  }
+
+  formatRatio(ratio: number) {
+    this.contrast = ratio;
+    let ratioAsFloat = ratio.toFixed(2);
+    let isInteger = Number.isInteger(parseFloat(ratioAsFloat));
+    let number = isInteger ? Math.floor(ratio) : ratioAsFloat;
+    return number + " : 1";
+  }
+
+  convertToHex(value: number) {
+    let hex = value.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+  }
+
+  convertRgbToHex(r: number, g: number, b: number) {
+    return "#" + this.convertToHex(r) + this.convertToHex(g) + this.convertToHex(b);
   }
 
 }

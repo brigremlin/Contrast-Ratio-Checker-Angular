@@ -3,6 +3,7 @@
     flex-direction: column;
     padding-block: 3rem;
     margin-inline: 2rem;
+    margin: auto;
 }
 h1 {
     font-size: 2.5rem;

@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
-  selectedTextColor: string = "rgb(0,0,0)";
-  selectedBackgroundColor: string = "rgb(256, 256, 256)";
+  selectedTextColor: string = "rgb(0, 0, 0)";
+  selectedBackgroundColor: string = "rgb(255, 255, 255)";
   contrastRatio: number =  0;
   l1: number = 0;
   l2: number = 0;
@@ -37,33 +37,32 @@ export class DashboardComponent implements OnInit {
       this.contrastRatio = (this.l2 + 0.05) / (this.l1 + 0.05);
     }
     this.ratio = this.formatRatio(this.contrastRatio);
+    console.log(this.ratio);
   }
 
   pullColorValues(rgb: string) {
+    let numberArray:any = [];
       //  L = 0.2126 * R + 0.7152 * G + 0.0722 * B
     var colorArr = rgb.slice( 
       rgb.indexOf("(") + 1,  
       rgb.indexOf(")") 
-  );
+    );
     let arr = colorArr.split(',');
-    var RsRgb = parseInt(arr[0]) / 255;
-    if(RsRgb <= 0.03928) {
-      var r = RsRgb / 12.92
-    } else {
-      var r = ((RsRgb + 0.055)/1.055) ** 2.4;
-    }
-    var GsRgb = parseInt(arr[1]) / 255;
-    if(GsRgb <= 0.03928) {
-      var g = GsRgb / 12.92
-    } else {
-      var g = ((GsRgb + 0.055)/1.055) ** 2.4;
-    }
-    var BsRgb = parseInt(arr[2]) / 255;
-    if(BsRgb <= 0.03928) {
-      var b = BsRgb / 12.92
-    } else {
-      var b = ((BsRgb + 0.055)/1.055) ** 2.4;
-    }
+    arr.forEach(element => {
+      numberArray.push(parseFloat(element));
+    });
+    var newR = (numberArray[0] / 255).toFixed(3);
+    let RsRgb = parseFloat(newR);
+    var r;
+    (RsRgb <= 0.03928) ? r = RsRgb / 12.92 : r = ((RsRgb + 0.055)/1.055) ** 2.4;
+    var newG = (numberArray[1] / 255).toFixed(3);
+    let GsRgb = parseFloat(newG);
+    var g;
+    (GsRgb <= 0.03928) ? g = GsRgb / 12.92 : g = ((GsRgb + 0.055)/1.055) ** 2.4;
+    var newB = (numberArray[2] / 255).toFixed(3);
+    let BsRgb = parseFloat(newB);
+    var b;
+    (BsRgb <= 0.03928) ? b = RsRgb / 12.92 : b = ((BsRgb + 0.055)/1.055) ** 2.4;
     var l = (r * 0.2126) + (g * 0.7152) + (b * 0.0722);
     return l;
   }
